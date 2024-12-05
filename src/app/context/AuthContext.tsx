@@ -1,3 +1,4 @@
+'use client'
 import { TAuthContext, TUser } from "@/types";
 import { createContext, useEffect, useState } from "react";
 

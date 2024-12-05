@@ -11,6 +11,14 @@ export type TUser = {
     notification_enabled?: boolean;
 }
 
+export type TNewUser = {
+    username: string;
+    firstname: string;
+    lastname: string;
+    email: string;
+    password: string;
+}
+
 export type TAuthContext = {
     user: TUser;
     isLoading: boolean;
@@ -18,3 +26,10 @@ export type TAuthContext = {
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
     checkAuthUser: () => Promise<boolean>;
 }
+
+export type TNavLink = {
+    imgURL: string;
+    route: string;
+    label: string;
+  };
+  

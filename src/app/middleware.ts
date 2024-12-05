@@ -9,7 +9,7 @@ const protectedRoutes = ["/dashboard"];
 
 export function middleware(req: NextRequest) {
     // 1. We first check for the Authentication token from the cookies which I will be storing in the future.
-    const token = req.cookies.get("token")?.value; // We are basically looking for a token in the cookie and ?.value ensures we get the value 
+    const token = req.cookies.get("authToken")?.value; // We are basically looking for a token in the cookie and ?.value ensures we get the value 
     // of the token if it exists. The token is proof that the user is logged in. If there is no token, the user isn't authenticated.
 
     // 2. I then clone the URL the user is trying to access.

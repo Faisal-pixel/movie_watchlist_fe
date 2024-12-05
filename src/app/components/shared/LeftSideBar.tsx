@@ -1,0 +1,102 @@
+"use client"
+import { Input } from "../ui/input";
+import SearchIcon from "../../../assets/icons/search.svg";
+import Link from "next/link";
+import { sidebarLinks } from "@/constants/SideBarLinks";
+import { TNavLink } from "@/types";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button"
+import {Menu} from "lucide-react"
+import DotDotDot from "../../../assets/icons/dot dot dot.svg";
+import GuestAvatar from "../../../assets/icons/GuestAvatar.svg";
+
+
+const LeftSideBar = () => {
+    const [isMounted, setIsMounted] = useState(false);
+    const [showSideBar, setShowSideBar] = useState(false);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    if (!isMounted) return null;
+
+    const onClickHamBurger = () => {
+        setShowSideBar(!showSideBar);
+    }
+
+  return (
+    <>
+    <div className={`fixed top-5 left-3 z-20 bg-[#1F1F1F] px-6 py-6 rounded-full md:hidden cursor-pointer transition-all ${showSideBar && "left-80"}`} onClick={onClickHamBurger}>
+    <Menu className="text-white"/>
+    </div>
+    <nav className={`flex px-6 flex-col min-w-[270px] bg-black h-screen transform translate-x-[-100%] md:translate-x-0 transition-transform ${showSideBar && "translate-x-0 relative z-10"}`}>
+      <h2 className="text-[#F33F3F] font-extrabold text-[40px] text-center mb-[20px] mt-[19px]">
+        Watchlists
+      </h2>
+
+      <div className="relative w-full mb-[40px]">
+        <SearchIcon className="absolute inset-y-2 left-3 flex items-center pointer-events-none" />
+        <Input
+          type="search"
+          className="pl-12 placeholder:text-xl placeholder:text-[#D9D9D94D]"
+          placeholder="Search"
+        />
+      </div>
+    
+      <ul className="flex flex-col gap-y-[30px]">
+        {sidebarLinks.map((link: TNavLink) => {
+            const isActive = pathname === link.route;
+          return (
+            <li key={link.label}>
+              <Link href={link.route} className={`flex px-[11px] py-[12px] rounded-md ${isActive && "bg-[#1F1F1F]"}`}>
+                <Image src={link.imgURL} alt={link.label} width={24} height={24} />
+                <span className="font-normal text-[16px] text-[#E1E1E1] ml-[14.2px]">
+                  {link.label}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div>
+        <Button className="bg-[#F33F3F] text-[#141414] font-bold text-[16px] text-center py-[11px] px-[56px] mt-[30px] cursor-pointer">
+          + Create watchlist
+        </Button>
+      </div>
+
+      {/* Will only show my list when a user is logged in */}
+
+      <hr className="mt-[20px] max-w-[260px] bg-[#D9D9D94D] border-none h-[1px]"/>
+      <div className="mt-[19px] overflow-y-auto">
+        <h3 className="text-[#9A9A9A] text-base ml-[12px]">My Lists</h3>
+      </div>
+
+      <div className="flex justify-between mt-auto mb-[30px] py-[0.4rem] px-[0.625rem] cursor-pointer border border-[#E1E1E1] rounded-[4px]">
+        {/* Profile picture */}
+        <div className="flex">
+          {/* Create here a div with height and width 32px and border-radius 50% and background-image with the user's profile picture */}
+          <span>
+            <GuestAvatar />
+          </span>
+          {/* So when a user has logged in, we can use the isAuthenticed state from the AuthContext to show the user's name and profile picture */}
+          <span className="text-[#E1E1E1] text-xs self-center ml-[0.625rem]">Guest</span>
+        </div>
+
+        {/* Elipse */}
+        <div className="flex justify-center items-center">
+          <span>
+            <DotDotDot />
+          </span>
+        </div>
+      </div>
+    </nav>
+    </>
+  );
+};
+
+export default LeftSideBar;

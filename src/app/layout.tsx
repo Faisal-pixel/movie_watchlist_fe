@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import AuthProvider from "./context/AuthContext";
+import LeftSideBar from "@/app/components/shared/LeftSideBar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,12 +25,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex h-full`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <LeftSideBar />
+          <div> {children}</div>
+        </AuthProvider>
       </body>
     </html>
   );
