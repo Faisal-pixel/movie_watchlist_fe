@@ -52,8 +52,11 @@ export default {
   			},
 			text: {
 				default: "#E1E1E1",
-			}
+			},
   		},
+		backgroundColor: {
+			mainBackground: '#060505e8',
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

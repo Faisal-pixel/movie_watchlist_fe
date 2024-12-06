@@ -1,6 +1,10 @@
 'use client'
+import { getCurrentUser } from "@/api/api";
 import { TAuthContext, TUser } from "@/types";
+import getCookie from "@/utils/get-cookies";
 import { createContext, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import removeCookie from "@/utils/remove-cookies";
 
 const INITIAL_USER = {
     id: 0,  // Usually 0 or null to represent an absent user.
@@ -25,11 +29,14 @@ const INITIAL_STATE = {
     setUser: () => {},
     setIsAuthenticated: () => {},
     checkAuthUser: async () => false as boolean, // means it will return false or a value as a boolean value
+    logOut: () => {},
 };
 
 export const AuthContext = createContext<TAuthContext>(INITIAL_STATE);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+    const router = useRouter();
+    const pathname = usePathname();
     const [user, setUser] = useState<TUser>(INITIAL_USER);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
@@ -40,21 +47,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             setIsLoading(true);
             // I will define a function that get the user from the backend
-
-            //But for now:
-            const currentAccount = {
-                id: 1,
-                username: 'testuser',
-                firstname: 'Test',
-                lastname: 'User',
-                profile_picture: 'https://randomuser.me/api/portraits',
-                password_hash: 'password',
-                email: 'adamsfaisal001@gmail.com',
-                created_at: '2021-09-01T00:00:00Z',
-                last_login: '2021-09-01T00:00:00Z',
-                bio: 'This is a test user',
-                notification_enabled: true,
-            }
+            const currentAccount = await getCurrentUser();
 
             if(currentAccount) {
                 setUser(currentAccount);
@@ -71,7 +64,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    const logOut = () => {
+        setUser(INITIAL_USER);
+        setIsAuthenticated(false);
+        removeCookie("authToken");
+        router.push("/");
+    }
+
     useEffect(() => {
+        if(!getCookie("authToken")) {
+            pathname !== "/signup" && router.push("/login");
+            return;
+        }
         checkAuthUser();
     }, []);
 
@@ -82,6 +86,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser,
         setIsAuthenticated,
         checkAuthUser,
+        logOut
     }
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -98,6 +98,12 @@ body {
   .form-input:focus {
     @apply bg-inherit;
   }
+  .form-input-signup {
+    @apply border border-[#E1E1E1] min-w-full text-text-default !mb-5;
+  }
+  .form-input-signup:focus {
+    @apply bg-inherit;
+  }
 }
 
 @layer base {

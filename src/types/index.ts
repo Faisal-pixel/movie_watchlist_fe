@@ -22,9 +22,11 @@ export type TNewUser = {
 export type TAuthContext = {
     user: TUser;
     isLoading: boolean;
+    isAuthenticated: boolean;
     setUser: React.Dispatch<React.SetStateAction<TUser>>;
     setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
     checkAuthUser: () => Promise<boolean>;
+    logOut: () => void;
 }
 
 export type TNavLink = {

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import AuthProvider from "./context/AuthContext";
 import LeftSideBar from "@/app/components/shared/LeftSideBar";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,6 +35,7 @@ export default function RootLayout({
         <AuthProvider>
           <LeftSideBar />
           <div className="flex-1 h-screen overflow-x-hidden hide-scrollbar"> {children}</div>
+          <Toaster />
         </AuthProvider>
       </body>
     </html>
