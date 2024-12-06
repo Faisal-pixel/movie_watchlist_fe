@@ -88,9 +88,11 @@ const LeftSideBar = () => {
         </ul>
 
         <div>
+          <Link href="/create-watchlist">
           <Button className="bg-[#F33F3F] text-[#141414] font-bold text-[16px] text-center py-[11px] px-[56px] mt-[30px] cursor-pointer">
             + Create watchlist
           </Button>
+          </Link>
         </div>
 
         {/* Will only show my list when a user is logged in */}
