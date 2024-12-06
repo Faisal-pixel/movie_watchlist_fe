@@ -4,6 +4,12 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+* {
+  box-sizing: border-box;
+  
 }
 
 @layer base {
@@ -60,6 +66,38 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-scrollbar-style: none;
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4b5563; /* Thumb color */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #d1d5db; /* Track color */
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .form-label {
+    @apply text-[#E1E1E1] font-bold text-xl mb-2;
+  }
+
+  .form-input {
+    @apply border border-[#E1E1E1] min-w-full text-text-default !mb-5 !py-6;
+  }
+  .form-input:focus {
+    @apply bg-inherit;
+  }
 }
 
 @layer base {
@@ -68,5 +106,12 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  .general-background {
+    @apply bg-[#060505e8];
+  }
+  .heading-text-color {
+    @apply text-[#E1E1E1];
   }
 }

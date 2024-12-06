@@ -3,7 +3,7 @@ import {NextRequest} from "next/server"; // Represents the incoming requets, inc
 
 // The protect routes array are a list of routes that requires a user to be logged in
 
-const protectedRoutes = ["/dashboard"];
+const protectedRoutes = ["/history"];
 
 // The function below will run for every request to my app.
 

@@ -33,9 +33,9 @@ const LeftSideBar = () => {
     <div className={`fixed top-5 left-3 z-20 bg-[#1F1F1F] px-6 py-6 rounded-full md:hidden cursor-pointer transition-all ${showSideBar && "left-80"}`} onClick={onClickHamBurger}>
     <Menu className="text-white"/>
     </div>
-    <nav className={`flex px-6 flex-col min-w-[270px] bg-black h-screen transform translate-x-[-100%] md:translate-x-0 transition-transform ${showSideBar && "translate-x-0 relative z-10"}`}>
+    <nav className={`flex px-6 flex-col min-w-[270px] bg-black h-screen transform md:translate-x-0 transition-transform ${showSideBar ? "translate-x-0 fixed z-10 flex" : "translate-x-[-100%] hidden md:flex"}`}>
       <h2 className="text-[#F33F3F] font-extrabold text-[40px] text-center mb-[20px] mt-[19px]">
-        Watchlists
+        MovieZone
       </h2>
 
       <div className="relative w-full mb-[40px]">

@@ -29,11 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex h-full hide-scrollbar`}
       >
         <AuthProvider>
           <LeftSideBar />
-          <div> {children}</div>
+          <div className="flex-1 h-screen overflow-x-hidden hide-scrollbar"> {children}</div>
         </AuthProvider>
       </body>
     </html>
