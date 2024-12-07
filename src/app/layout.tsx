@@ -4,6 +4,7 @@ import "./globals.css";
 import AuthProvider from "./context/AuthContext";
 import LeftSideBar from "@/app/components/shared/LeftSideBar";
 import { Toaster } from "@/components/ui/toaster";
+import WatchListsProvider from "./context/WatchListsContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,16 +27,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex h-full hide-scrollbar`}
       >
         <AuthProvider>
-          <LeftSideBar />
-          <div className="flex-1 h-screen overflow-x-hidden hide-scrollbar"> {children}</div>
-          <Toaster />
+          <WatchListsProvider>
+            <LeftSideBar />
+            <div className="flex-1 h-screen overflow-x-hidden hide-scrollbar">
+              {" "}
+              {children}
+            </div>
+            <Toaster />
+          </WatchListsProvider>
         </AuthProvider>
       </body>
     </html>

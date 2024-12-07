@@ -24,7 +24,7 @@ const CreateWatchlist = (props: Props) => {
   const form = useForm<z.infer<typeof CreateWatchlistValidationSchema>>({
     resolver: zodResolver(CreateWatchlistValidationSchema),
     defaultValues: {
-      name: "",
+      watchlist_name: "",
       description: "",
     },
   });
@@ -42,7 +42,7 @@ const CreateWatchlist = (props: Props) => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-[3.125rem]">
           <FormField
             control={form.control}
-            name="name"
+            name="watchlist_name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>

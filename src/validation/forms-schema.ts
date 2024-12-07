@@ -14,6 +14,6 @@ export const SigninValidationSchema = z.object({
 });
 
 export const CreateWatchlistValidationSchema = z.object({
-    name: z.string().min(2, { message: "Name is required" }),
+    watchlist_name: z.string().min(2, { message: "Name is required" }),
     description: z.string().min(2, { message: "Description is required" }),
 });

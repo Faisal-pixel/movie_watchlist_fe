@@ -34,4 +34,19 @@ export type TNavLink = {
     route: string;
     label: string;
   };
+
+export type TWatchlist = {
+    id: number;
+    watchlist_name: string;
+    description: string;
+    user_id: number;
+    created_at: string;
+}
+
+export type TWatchlistContext = {
+    watchlists: TWatchlist[];
+    setWatchlists: React.Dispatch<React.SetStateAction<TWatchlist[]>>;
+    isLoading: boolean;
+    setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
   

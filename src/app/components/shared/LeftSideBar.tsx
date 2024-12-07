@@ -13,6 +13,7 @@ import DotDotDot from "../../../assets/icons/dot dot dot.svg";
 import GuestAvatar from "../../../assets/icons/GuestAvatar.svg";
 import { AuthContext } from "@/app/context/AuthContext";
 import DropdownMenuComponent from "./DropdownMenuComponent";
+import WatchLists from "../WatchLists";
 
 const LeftSideBar = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
@@ -98,8 +99,11 @@ const LeftSideBar = () => {
         {/* Will only show my list when a user is logged in */}
 
         <hr className="mt-[20px] max-w-[260px] bg-[#D9D9D94D] border-none h-[1px]" />
-        <div className="mt-[19px] overflow-y-auto">
+        <div className="mt-[19px] ">
           <h3 className="text-[#9A9A9A] text-base ml-[12px]">My Lists</h3>
+          <div className="h-[10rem] mt-5 overflow-y-auto">
+          <WatchLists />
+          </div>
         </div>
 
         <div className="flex justify-between mt-auto mb-[30px] py-[0.4rem] px-[0.625rem] cursor-pointer border border-[#E1E1E1] rounded-[4px]">

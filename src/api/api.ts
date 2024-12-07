@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axios/axios.instance";
-import { TNewUser } from "@/types";
+import { TNewUser, TWatchlist } from "@/types";
 import setCookie from "@/utils/set-cookies";
 import axios from "axios";
 
@@ -60,6 +60,43 @@ export const getCurrentUser = async () => {
         const result = await axiosInstance.get("/user/get-current-user");
         if(!result) {
             throw new Error("User not found");
+        }
+
+        return result.data.data;
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            return error.response.data;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "Unknown error occurred");
+        }
+    }
+}
+
+export const getWatchLists = async () => {
+    try {
+        const result = await axiosInstance.get("/watchlist/get-watchlists");
+        if(!result) {
+            throw new Error("Watchlists not found");
+        }
+
+        return result.data.data;
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            return error.response.data;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "Unknown error occurred");
+        }
+    }
+}
+
+export const addWatchListToBackend = async (watchlist: TWatchlist) => {
+    try {
+        const result = await axiosInstance.post("/watchlist/add-watchlist", {
+            watchlist_name: watchlist.watchlist_name,
+            description: watchlist.description,
+        });
+        if(!result) {
+            throw new Error("Watchlist not added");
         }
 
         return result.data.data;
