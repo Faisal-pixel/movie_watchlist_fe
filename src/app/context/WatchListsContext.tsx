@@ -3,7 +3,6 @@ import { addWatchListToBackend, getWatchLists } from "@/api/api";
 import { TWatchlist, TWatchlistContext } from "@/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { watch } from "fs";
 
 const INITIAL_WATCHLISTS: TWatchlist[] = [];
 
@@ -32,7 +31,7 @@ const WatchListsProvider = ({ children }: { children: React.ReactNode }) => {
             setIsLoading(true);
             const result = await getWatchLists();
             if(result) {
-                console.log(result);
+                // console.log(result);
                 setWatchlists(result);
             }
         } catch (error) {

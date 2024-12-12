@@ -7,7 +7,11 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: 'res.cloudinary.com',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+      },
     ]
   },
   reactStrictMode: true,

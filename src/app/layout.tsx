@@ -5,6 +5,7 @@ import AuthProvider from "./context/AuthContext";
 import LeftSideBar from "@/app/components/shared/LeftSideBar";
 import { Toaster } from "@/components/ui/toaster";
 import WatchListsProvider from "./context/WatchListsContext";
+import { MovieProvider } from "./context/MovieContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,12 +35,14 @@ export default function RootLayout({
       >
         <AuthProvider>
           <WatchListsProvider>
-            <LeftSideBar />
-            <div className="flex-1 h-screen overflow-x-hidden hide-scrollbar">
-              {" "}
-              {children}
-            </div>
-            <Toaster />
+            <MovieProvider>
+              <LeftSideBar />
+              <div className="flex-1 h-screen overflow-x-none hide-scrollbar">
+                {" "}
+                {children}
+              </div>
+              <Toaster />
+            </MovieProvider>
           </WatchListsProvider>
         </AuthProvider>
       </body>

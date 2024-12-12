@@ -4,7 +4,6 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  
 }
 
 * {
@@ -88,6 +87,10 @@ body {
 }
 
 @layer utilities {
+  /* html {
+    @apply h-screen overflow-hidden bg-black;
+  } */
+
   .form-label {
     @apply text-[#E1E1E1] font-bold text-xl mb-2;
   }

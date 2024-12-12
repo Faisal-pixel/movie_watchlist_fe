@@ -37,7 +37,6 @@ const LogIn = () => {
     },
   });
 
-  console.log(process.env.NEXT_PUBLIC_API_BASE_URL);
 
   const onSubmit = async (values: z.infer<typeof SigninValidationSchema>) => {
     try {

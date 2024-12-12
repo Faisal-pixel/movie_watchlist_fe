@@ -10,7 +10,6 @@ export const signUpUser = async (user: TNewUser) => {
         // if the result isnt successful, throw an error
         // if it is successful, return the result
         // then catch the error and return the error
-        console.log("Sign up user running...");
         const result = await axiosInstance.post("/auth/signup", {
             firstname: user.firstname,
             lastname: user.lastname,

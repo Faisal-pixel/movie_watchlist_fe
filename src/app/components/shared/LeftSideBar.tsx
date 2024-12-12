@@ -43,7 +43,7 @@ const LeftSideBar = () => {
         <Menu className="text-white" />
       </div>
       <nav
-        className={`flex px-6 flex-col min-w-[270px] bg-black h-screen transform md:translate-x-0 transition-transform ${
+        className={`flex px-6 flex-col min-w-[270px] bg-black h-screen lg:overflow-y-scroll transform md:translate-x-0 transition-transform ${
           showSideBar
             ? "translate-x-0 fixed z-10 flex"
             : "translate-x-[-100%] hidden md:flex"
