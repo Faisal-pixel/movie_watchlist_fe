@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useContext } from "react";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,10 +17,13 @@ import {
 import { Input } from "@/app/components/ui/input";
 import { CreateWatchlistValidationSchema } from "@/validation/forms-schema";
 import { Textarea } from "@/components/ui/textarea"
+import { WatchListsContext } from "../context/WatchListsContext";
+import { useToast } from "@/hooks/use-toast";
+import { addWatchListToBackend } from "@/api/watchlist/api";
 
-type Props = {};
+// type Props = {};
 
-const CreateWatchlist = (props: Props) => {
+const CreateWatchlist = () => {
   const form = useForm<z.infer<typeof CreateWatchlistValidationSchema>>({
     resolver: zodResolver(CreateWatchlistValidationSchema),
     defaultValues: {
@@ -29,14 +32,31 @@ const CreateWatchlist = (props: Props) => {
     },
   });
 
+  const { toast } = useToast();
+
+  const {reloadWatchlist} = useContext(WatchListsContext);
+
   const onSubmit = async (
     values: z.infer<typeof CreateWatchlistValidationSchema>
   ) => {
-    console.log(values);
+    const result =  await addWatchListToBackend(values);
+    const {success, message} = result;
+    if(!success && message == "Watchlist already exists") {
+      return toast({
+        title: "Watchlist already exists",
+      });
+    }
+
+    reloadWatchlist();
+    toast({
+      title: "Watchlist created successfully",
+    });
+
+    form.reset();
   };
   return (
     <div className="pl-[1.4375rem] pr-[4.1875rem] py-[3.125rem] bg-mainBackground h-screen text-text-default">
-      <p className="text-3xl">Create a new Watchlist</p>
+      <p className="text-3xl mt-12 lg:mt-0">Create a new Watchlist</p>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-[3.125rem]">

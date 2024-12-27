@@ -36,11 +36,12 @@ export type TNavLink = {
   };
 
 export type TWatchlist = {
-    id: number;
+    id?: string;
     watchlist_name: string;
     description: string;
-    user_id: number;
-    created_at: string;
+    user_id?: number;
+    created_at?: Date;
+    movies?: TWatchlistMovie[]
 }
 
 export type TWatchlistContext = {
@@ -48,6 +49,8 @@ export type TWatchlistContext = {
     setWatchlists: React.Dispatch<React.SetStateAction<TWatchlist[]>>;
     isLoading: boolean;
     setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+    reloadWatchlist: () => void;
+    deleteWatchlist: (watchlist_id: string) => Promise<unknown>;
 }
 
 export type TMovie = {
@@ -108,3 +111,16 @@ export type TConfigurationDetails = {
     change_keys?: string[];
 }
   
+
+export type TApiResponse = {
+    success: boolean;
+    message?: string;
+    data?: unknown;
+}
+
+
+
+export type TWatchlistMovie = {
+    tmdb_movie_id: number,
+    added_at: Date
+}

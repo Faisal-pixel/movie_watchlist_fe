@@ -1,14 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { WatchListsContext } from "../context/WatchListsContext";
+import SingleWatchlistDropdown from "./SingleWatchlistDropdown";
 
 type Props = {
   watchlist_name: string;
+  watchlist_id: number;
 };
 
-const SingleWatchList = ({watchlist_name}: Props) => {
+const SingleWatchList = ({watchlist_name, watchlist_id}: Props) => {
   return (
-    <div className="flex flex-col gap-y-2">
-      <div className="text-text-default mt-[1.25rem] px-3 py-2 hover:bg-[#1F1F1F] cursor-pointer rounded-sm">
+    <div className="flex items-center hover:bg-[#1F1F1F]">
+      <div className="flex-1 text-text-default  px-3 py-2 cursor-pointer rounded-sm ">
         <span className="h-[1.3125rem] w-[1.369375rem] inline-flex items-center justify-center text-center bg-[#D9D9D9] text-xl text-black rounded-lg">
           {
             watchlist_name.split("")[0]
@@ -18,6 +20,10 @@ const SingleWatchList = ({watchlist_name}: Props) => {
             {watchlist_name}
         </span>
       </div>
+      <span className="ml-auto">
+        {/* <Ellipsis className="text-text-default" /> */}
+        <SingleWatchlistDropdown watchlist_name={watchlist_name} watchlist_id={watchlist_id}/>
+      </span>
     </div>
   );
 };
@@ -28,6 +34,7 @@ const WatchLists = () => {
     <SingleWatchList
       key={watchlist.id}
       watchlist_name={watchlist.watchlist_name}
+      watchlist_id={watchlist.id as number}
     />
   ));
 };

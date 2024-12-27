@@ -21,3 +21,42 @@ To resolve this issue, you need to configure CORS (Cross-Origin Resource Sharing
 ```bash
 npm install cors
 ```
+
+# QUESTION: How do I dynamically send only the fields that are updated in a PATCH request?
+
+# ANSWER:
+CODE EXAMPLE:
+```ts
+export const updateWatchlist = async (id: string, data: { watchlist_name?: string; description?: string }) => {
+    try {
+        // Filter out undefined values from the data object
+        const filteredData = Object.fromEntries(
+            Object.entries(data).filter(([_, value]) => value !== undefined)
+        );
+
+        const result = await axiosInstance.patch(`/watchlist/edit/${id}`, filteredData);
+
+        if (!result) {
+            throw new Error("Watchlist not updated");
+        }
+
+        return result.data;
+    } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+            return error.response.data;
+        } else {
+            throw new Error(error instanceof Error ? error.message : "Unknown error occurred");
+        }
+    }
+};
+
+```
+1. Object.entries(data): This basically converts the data into an array of key-value pairs. For example, if data = { watchlist_name: "New Name", description: "New Description" }, Object.entries(data) will return [["watchlist_name", "New Name"], ["description", "New Description"]].
+
+2. Object.entries(data).filter(([_, value]) => value !== undefined): This filters out the key-value pairs where the value is undefined. This way, we only keep the fields that are updated.
+
+So basically we filter the array, that is we go through each element which is also an array of key and values, then we deconstruct the array into [_, value] where _ is the key and value is the value. We then check if the value is not undefined and only keep those key-value pairs.
+
+So now we have only arrays of key-value pairs where the value is not undefined.
+
+3. Object.fromEntries(): This converts the array of key-value pairs back into an object. This is the reverse operation of Object.entries().

@@ -25,7 +25,9 @@ const NowPlayingMoviesLists = () => {
   }, []);
 
   return (
-    <div className="max-w-full">
+    <>
+      <p className="text-[#E1E1E1] text-2xl mb-[35px]">Now playing movies</p>
+    <div className="hide-scrollbar">
       <Carousel className="w-full max-w-[69.265625rem]">
         <CarouselContent className="gap-x-8 ml-4">
           {movies.map((movie) => (
@@ -38,6 +40,7 @@ const NowPlayingMoviesLists = () => {
         <CarouselNext />
       </Carousel>
     </div>
+    </>
   );
 };
 

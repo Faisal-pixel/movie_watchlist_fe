@@ -13,8 +13,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     // This recieves two function, the first one receives a config object sent by axios which contains the request details
     // The second is an error function that will be called if there is an error
-    (config) => {
+    async (config) => {
         const token = getToken(); // This gets the token from the cookie
+        
         if(token) {
             config.headers['Authorization'] = `Bearer ${token}`; // This adds the token to the header
         }

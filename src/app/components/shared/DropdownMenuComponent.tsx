@@ -1,46 +1,67 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { AuthContext } from "@/app/context/AuthContext";
+
 import Link from "next/link";
-import { useToast } from "@/hooks/use-toast";
+
+type DropdownMenuItemProps = {
+  label: string;
+  onClick?: () => void; // Optional click handler
+  href?: string; // Optional link
+  className?: string; // Optional custom styles
+};
 
 type Props = {
   children: React.ReactNode;
+  menuLabel?: string;
+  menuItems: DropdownMenuItemProps[];
+  className?: string;
 };
 
-const DropdownMenuComponent = ({ children }: Props) => {
-  const {toast} = useToast();
-
-    const {logOut, isAuthenticated} = useContext(AuthContext);
-
-    const onClickLogout = () => {
-        logOut();
-        toast({
-            title: "Logged out successfully"
-        });
-    }
+const DropdownMenuComponent = ({
+  children,
+  menuLabel,
+  menuItems,
+}: Props) => {
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
       <DropdownMenuContent className="bg-mainBackground text-text-default">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {
+        {menuLabel && <DropdownMenuLabel>{menuLabel}</DropdownMenuLabel>}
+
+        {menuItems.map((item, index) => {
+          return (
+            <DropdownMenuItem
+              key={index}
+              className={`cursor-pointer ${item.className}`}
+              onClick={item?.onClick}
+            >
+              {/* If the item has an href, render a link, otherwise just the label */}
+              {item.href ? (
+                <Link href={item.href}>{item.label}</Link>
+              ) : (
+                item.label
+              )}
+            </DropdownMenuItem>
+          );
+        })}
+
+        {/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator /> */}
+        {/*
             isAuthenticated ? (
                 <>
                     <DropdownMenuItem className="cursor-pointer" >
                     <Link className="inline-block w-full" href="/profile">Profile</Link>
                     </DropdownMenuItem>
                     {/* <DropdownMenuItem>Settings</DropdownMenuItem> */}
-                    <DropdownMenuItem className="cursor-pointer" onClick={onClickLogout}>Logout</DropdownMenuItem>
+        {/*  <DropdownMenuItem className="cursor-pointer" onClick={onClickLogout}>Logout</DropdownMenuItem>
                 </>
             ) : (
                 <>
@@ -52,7 +73,7 @@ const DropdownMenuComponent = ({ children }: Props) => {
                     </DropdownMenuItem>
                 </>
             )
-        }
+        } */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

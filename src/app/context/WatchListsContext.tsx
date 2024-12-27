@@ -1,5 +1,5 @@
 "use client";
-import { addWatchListToBackend, getWatchLists } from "@/api/api";
+import { deleteWatchlistFromBackend, getWatchLists } from "@/api/watchlist/api";
 import { TWatchlist, TWatchlistContext } from "@/types";
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
@@ -11,6 +11,8 @@ const INITIAL_STATE = {
     setWatchlists: () => {},
     isLoading: false,
     setIsLoading: () => {},
+    reloadWatchlist: () => {},
+    deleteWatchlist: async () => {},
 };
 
 export const WatchListsContext = createContext<TWatchlistContext>(INITIAL_STATE);
@@ -39,21 +41,25 @@ const WatchListsProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    const deleteWatchlist = async (watchlist_id: string) => {
+        // Add delete watchlist logic here (e.g., API call)
+        const result = await deleteWatchlistFromBackend(watchlist_id);
+        // Assuming you delete successfully, trigger reload
+        setReloadFlag((prev) => !prev); // Flip the flag to trigger reloading
+        return result;
+    }
+
     useEffect(() => {
         if(isAuthenticated) {
             loadWatchlists();
         }
     }, [isAuthenticated, reloadFlag]);
 
-    const addWatchlist = async (newWatchlist: TWatchlist) => {
-        try {
+    const reloadWatchlist = () => {
             // Add new watchlist logic here (e.g., API call)
-            const result = await addWatchListToBackend(newWatchlist);
+            // const result = await addWatchListToBackend(newWatchlist);
             // Assuming you add successfully, trigger reload
             setReloadFlag((prev) => !prev); // Flip the flag to trigger reloading
-        } catch (error) {
-            console.error("Error adding watchlist:", error);
-        }
     };
 
     const value = {
@@ -61,7 +67,8 @@ const WatchListsProvider = ({ children }: { children: React.ReactNode }) => {
         setWatchlists,
         isLoading,
         setIsLoading,
-        addWatchlist
+        reloadWatchlist,
+        deleteWatchlist
     }
 
     return (

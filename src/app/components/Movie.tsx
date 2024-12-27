@@ -11,16 +11,13 @@ type Props = {
 const Movie = ({ movie }: Props) => {
   const {configurationDetails} = useContext(MovieContext);
   const [imagePath, setImagePath] = useState<string>("");
-  console.log("configurationDetails", configurationDetails);
-  console.log("movie", movie);
-  console.log("movie", `${configurationDetails.images?.secure_base_url}${configurationDetails.images?.poster_sizes[4]}${movie.poster_path}`);
   useEffect(() => {
     if(configurationDetails.images && movie.poster_path) {
       setImagePath(`${configurationDetails.images.secure_base_url}${configurationDetails.images.poster_sizes[4]}${movie.poster_path}`);
     }
   }, [configurationDetails, movie.poster_path]);
   return (
-    <div className="w-full">
+    <div className="w-full cursor-pointer">
       <div className="h-[14.0625rem] w-full">
         <Image
           src={imagePath || DummyPoster}

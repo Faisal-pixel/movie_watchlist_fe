@@ -9,11 +9,10 @@ import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import DotDotDot from "../../../assets/icons/dot dot dot.svg";
 import GuestAvatar from "../../../assets/icons/GuestAvatar.svg";
 import { AuthContext } from "@/app/context/AuthContext";
-import DropdownMenuComponent from "./DropdownMenuComponent";
 import WatchLists from "../WatchLists";
+import AccountDropdown from "../AccountDropdown";
 
 const LeftSideBar = () => {
   const { isAuthenticated, user } = useContext(AuthContext);
@@ -35,7 +34,7 @@ const LeftSideBar = () => {
   return (
     <>
       <div
-        className={`fixed top-5 left-3 z-20 bg-[#1F1F1F] px-6 py-6 rounded-full md:hidden cursor-pointer transition-all ${
+        className={`fixed top-5 left-3 z-20 bg-[#1F1F1F] px-6 py-6 rounded-full lg:hidden cursor-pointer transition-all ${
           showSideBar && "left-80"
         }`}
         onClick={onClickHamBurger}
@@ -43,10 +42,10 @@ const LeftSideBar = () => {
         <Menu className="text-white" />
       </div>
       <nav
-        className={`flex px-6 flex-col min-w-[270px] bg-black h-screen lg:overflow-y-scroll transform md:translate-x-0 transition-transform ${
+        className={`flex px-6 flex-col min-w-[270px] bg-black h-screen lg:overflow-y-scroll transform lg:translate-x-0 transition-transform ${
           showSideBar
             ? "translate-x-0 fixed z-10 flex"
-            : "translate-x-[-100%] hidden md:flex"
+            : "translate-x-[-100%] hidden lg:flex"
         }`}
       >
         <h2 className="text-[#F33F3F] font-extrabold text-[40px] text-center mb-[20px] mt-[19px]">
@@ -101,7 +100,7 @@ const LeftSideBar = () => {
         <hr className="mt-[20px] max-w-[260px] bg-[#D9D9D94D] border-none h-[1px]" />
         <div className="mt-[19px] ">
           <h3 className="text-[#9A9A9A] text-base ml-[12px]">My Lists</h3>
-          <div className="h-[10rem] mt-5 overflow-y-auto">
+          <div className="h-[10rem] mt-5 overflow-y-auto flex flex-col gap-y-3">
           <WatchLists />
           </div>
         </div>
@@ -144,13 +143,14 @@ const LeftSideBar = () => {
           </div>
 
           {/* Elipse */}
-          <DropdownMenuComponent>
+          <AccountDropdown />
+          {/* <DropdownMenuComponent>
             <div className="flex justify-center items-center">
               <span>
                 <DotDotDot />
               </span>
             </div>
-          </DropdownMenuComponent>
+          </DropdownMenuComponent> */}
         </div>
       </nav>
     </>
