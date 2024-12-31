@@ -1,9 +1,8 @@
-import { getAxiosRequestConfig, getServerSideToken } from "@/app/auth/auth-server";
+import { getAxiosRequestConfig} from "@/app/auth/auth-server";
 import EditWatchlistFormComponent from "@/app/components/EditWatchlistFormComponent";
 import { Button } from "@/components/ui/button";
 import base_url from "@/constants/base-url";
 import { TWatchlist } from "@/types";
-import axios from "axios";
 import { Metadata } from "next";
 
 interface IEditWatchlistPageProps {
