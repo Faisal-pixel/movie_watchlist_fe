@@ -65,11 +65,9 @@ export const deleteWatchlistFromBackend = async (watchlist_id: string) => {
 
 export const getSingleWatchlist = async (watchlist_id: string) => {
   try {
-    console.log("getting watchlist with id");
     const result = await axiosInstance.get(
       `/watchlist/get-watchlist/${watchlist_id}`
     );
-    console.log("result from the api", result.data);
     if (!result) {
       throw new Error("Watchlist not found");
     }

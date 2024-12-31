@@ -29,7 +29,6 @@ const LeftSideBar = () => {
   const onClickHamBurger = () => {
     setShowSideBar(!showSideBar);
   };
-  console.log(user.profile_picture);
 
   return (
     <>

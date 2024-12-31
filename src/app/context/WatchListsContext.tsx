@@ -31,9 +31,9 @@ const WatchListsProvider = ({ children }: { children: React.ReactNode }) => {
     const loadWatchlists = async () => {
         try {
             setIsLoading(true);
+           
             const result = await getWatchLists();
             if(result) {
-                // console.log(result);
                 setWatchlists(result);
             }
         } catch (error) {

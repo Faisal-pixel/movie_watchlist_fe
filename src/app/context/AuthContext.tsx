@@ -1,9 +1,10 @@
 'use client'
 import { getCurrentUser } from "@/api/api";
 import { TAuthContext, TUser } from "@/types";
-import { createContext, useState } from "react";
-import { useRouter } from "next/navigation";
+import { createContext, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import removeCookie from "@/utils/remove-cookies";
+import getCookie from "@/utils/get-cookies";
 
 const INITIAL_USER = {
     id: 0,  // Usually 0 or null to represent an absent user.
@@ -34,6 +35,7 @@ const INITIAL_STATE = {
 export const AuthContext = createContext<TAuthContext>(INITIAL_STATE);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+    const pathname = usePathname();
     const router = useRouter();
     // const pathname = usePathname();
     const [user, setUser] = useState<TUser>(INITIAL_USER);
@@ -70,15 +72,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         router.push("/");
     }
 
-    // useEffect(() => {
-    //     if(!getCookie("authToken")) {
-    //         if (pathname !== "/signup") {
-    //             router.push("/login");
-    //         }
-    //         return;
-    //     }
-    //     checkAuthUser();
-    // }, [pathname, router]);
+    useEffect(() => {
+        // if(!getCookie("authToken")) {
+        //     if (pathname !== "/signup") {
+        //         router.push("/login");
+        //     }
+        //     return;
+        // }
+        if(getCookie("authToken")) checkAuthUser();
+    }, [pathname, router]);
 
     const value = {
         user,

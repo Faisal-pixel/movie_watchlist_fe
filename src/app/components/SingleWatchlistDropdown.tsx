@@ -8,7 +8,7 @@ import { TApiResponse } from "@/types";
 
 type Props = {
   watchlist_name: string;
-    watchlist_id: number;
+    watchlist_id: string;
 };
 
 const SingleWatchlistDropdown = ({ watchlist_name, watchlist_id }: Props) => {

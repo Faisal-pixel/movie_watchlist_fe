@@ -1,4 +1,4 @@
-import { getServerSideToken } from "@/app/auth/auth-server";
+import { getAxiosRequestConfig, getServerSideToken } from "@/app/auth/auth-server";
 import EditWatchlistFormComponent from "@/app/components/EditWatchlistFormComponent";
 import { Button } from "@/components/ui/button";
 import base_url from "@/constants/base-url";
@@ -16,15 +16,8 @@ export async function generateMetadata({
   params,
 }: IEditWatchlistPageProps): Promise<Metadata> {
   const { watchlist_id } =await params;
-  const token = await getServerSideToken();
-  const response = await axios.get(
-    `${base_url}/watchlist/get-watchlist/${watchlist_id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const getWatchlistUrl = `${base_url}/watchlist/get-watchlist/${watchlist_id}`;
+  const response = await getAxiosRequestConfig(getWatchlistUrl);
   const data = response.data.data;
   const { watchlist_name, description } = data as TWatchlist;
 
@@ -38,15 +31,7 @@ export default async function WatchlistPage({
   params,
 }: IEditWatchlistPageProps) {
   const { watchlist_id } = params;
-  const token = await getServerSideToken();
-  const response = await axios.get(
-    `${base_url}/watchlist/get-watchlist/${watchlist_id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await getAxiosRequestConfig(`${base_url}/watchlist/get-watchlist/${watchlist_id}`);
   const data = response.data.data;
   
 

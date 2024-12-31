@@ -38,7 +38,6 @@ const EditWatchlistFormComponent = ({
   const onSubmit = async (
     values: z.infer<typeof EditWatchlistValidationSchema>
   ) => {
-    console.log("Button clicked");
     // We first create an updatedFields object that will hold the final data we send as a request
     const updatedFields: Partial<
       z.infer<typeof EditWatchlistValidationSchema>
@@ -65,7 +64,6 @@ const EditWatchlistFormComponent = ({
     }
 
     const response = await updateWatchlist(id as string, updatedFields);
-    console.log(response);
     if (!response.success) {
       return toast({
         title: response.message,
