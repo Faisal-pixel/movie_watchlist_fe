@@ -88,7 +88,7 @@ const LeftSideBar = () => {
 
         <div>
           <Link href="/create-watchlist">
-          <Button className="bg-[#F33F3F] text-[#141414] font-bold text-[16px] text-center py-[11px] px-[56px] mt-[30px] cursor-pointer">
+          <Button className="bg-[#F33F3F] text-[#141414] font-bold text-[16px] text-center py-[11px] px-[56px] mt-[30px] cursor-pointer hover:text-text-default">
             + Create watchlist
           </Button>
           </Link>

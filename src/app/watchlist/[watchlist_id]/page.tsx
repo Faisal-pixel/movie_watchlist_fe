@@ -5,6 +5,7 @@ import EditWatchlistIcon from "@/assets/icons/EditWatchlistName.svg";
 import { TMovie, TWatchlist, TWatchlistMovie } from "@/types";
 import RedBorderedBoxes from "@/app/components/RedBorderedBoxes";
 import { fetchMoviesDetails } from "@/api/tmdb/api";
+import Movie from "@/app/components/Movie";
 
 interface IWatchlistDetailsProps {
   params: {
@@ -38,12 +39,8 @@ const page = async ({ params }: IWatchlistDetailsProps) => {
   } catch (error) {
     console.error("Failed to fetch all movie details:", error);
   }
-
-  console.log(moviesDetails);
-
-  console.log(data);
   return (
-    <div className="p-[1.9rem] h-full bg-[#060505e8] text-text-default">
+    <div className="p-[1.9rem] h-screen overflow-y-scroll bg-[#060505e8] text-text-default">
       <div className="min-w-[50%] mb-[4.375rem]">
         <div className="flex mb-[26px]">
           <h1 className="mr-[50px] font-bold text-4xl">{watchlist_name}</h1>
@@ -55,11 +52,19 @@ const page = async ({ params }: IWatchlistDetailsProps) => {
         <p>{description}</p>
       </div>
 
-      <div>
+      <div className="mb-[5.3125rem]">
         <RedBorderedBoxes
           title="ITEMS ON LIST"
           body={moviesDetails?.length.toString() as string}
         />
+      </div>
+
+      <div className="grid grid-cols-5 gap-14 overflow-y-scroll">
+        {
+            moviesDetails.map((movie) => (
+                <Movie movie={movie} key={movie.id} />
+                ))
+        }
       </div>
     </div>
   );

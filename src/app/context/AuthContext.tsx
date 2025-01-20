@@ -45,11 +45,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // I need to create a function that will check if the user is authenticated
 
     const checkAuthUser = async () => {
+        console.log("The checkAuthUser function is running in the auth context")
         try {
             setIsLoading(true);
             // I will define a function that get the user from the backend
             const currentAccount = await getCurrentUser();
-
+            console.log("Gotten the current user", currentAccount);
             if(currentAccount) {
                 setUser(currentAccount);
                 setIsAuthenticated(true);
@@ -79,7 +80,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         //     }
         //     return;
         // }
-        if(getCookie("authToken")) checkAuthUser();
+        console.log("the auth token cookie called in the auth context", getCookie("authToken"));
+        console.log("isAuthenticated in the auth context", isAuthenticated);
+        console.log("user exists in the auth context", user);
+        if(getCookie("authToken")) {
+            console.log("cookie after getting it in the auth context", getCookie("authToken"));
+            checkAuthUser()
+        };
     }, [pathname, router]);
 
     const value = {

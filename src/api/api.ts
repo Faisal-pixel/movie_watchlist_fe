@@ -41,6 +41,7 @@ export const loginUser = async (email: string, password: string) => {
 
         if(success && token) {
             setCookie("authToken", token, 1);
+            console.log("Cookies after login:", document.cookie);
             return true;
         }
 

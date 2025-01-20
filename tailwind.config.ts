@@ -56,6 +56,7 @@ export default {
   		},
 		backgroundColor: {
 			mainBackground: '#060505e8',
+			buttonBackground: '#F33F3F',
 		},
   		borderRadius: {
   			lg: 'var(--radius)',

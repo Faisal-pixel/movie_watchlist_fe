@@ -32,6 +32,10 @@ const SingleWatchList = ({ watchlist_name, watchlist_id }: Props) => {
 
 const WatchLists = () => {
   const { watchlists } = useContext(WatchListsContext);
+  if(!Array.isArray(watchlists)) {
+    console.log("Watchlists data is not an array or not available");
+    return <div className="text-text-default">Failed to load watchlists. Please try again later.</div>
+  }
   return watchlists.map((watchlist) => (
     <SingleWatchList
       key={watchlist.id}

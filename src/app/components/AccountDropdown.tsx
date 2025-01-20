@@ -23,6 +23,7 @@ const AccountDropdown = () => {
     });
   };
 
+
   const menuItems = isAuthenticated
     ? [
         {

@@ -30,7 +30,6 @@ export const addWatchListToBackend = async (watchlist: TWatchlist) => {
     if (!result) {
       throw new Error("Watchlist not added");
     }
-    console.log("result from the api", result.data);
     return result.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -91,7 +90,6 @@ export const updateWatchlist = async (
     const filteredData = Object.fromEntries(
       Object.entries(data).filter(([, value]) => value !== undefined)
     );
-    console.log("filtered data", filteredData);
     const result = await axiosInstance.patch(
       `/watchlist/edit/${id}`,
       filteredData
@@ -110,3 +108,46 @@ export const updateWatchlist = async (
     }
   }
 };
+
+export const addMovieToWatchlist = async (tmdb_movie_id: number, watchlist_id: string) => {
+  try {
+    const response = await axiosInstance.post(`/watchlist/add-movie-to-watchlist/${watchlist_id}`, {
+      tmdb_movie_id,
+    });
+    if (!response) {
+      throw new Error(`Failed to add movie to watchlist with ID ${watchlist_id}`);
+    }
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data;
+    } else {
+      throw new Error(
+        error instanceof Error ? error.message : "Unknown error occurred"
+      );
+    }
+    
+  }
+}
+
+export const addMovieToAllSelectedWatchlists = async (tmdb_movie_id: number, watchlists: TWatchlist[]) => {
+  try {
+    const watchlistPromises = watchlists.map((w) =>
+      addMovieToWatchlist(tmdb_movie_id, w.id as string)
+    );
+    const response = await Promise.all(watchlistPromises);
+    if (!response) {
+      throw new Error(`Failed to add movie to watchlists`);
+    }
+    return response;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data;
+    } else {
+      throw new Error(
+        error instanceof Error ? error.message : "Unknown error occurred"
+      );
+    }
+    
+  }
+}

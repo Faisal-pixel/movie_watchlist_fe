@@ -31,7 +31,7 @@ const NowPlayingMoviesLists = () => {
       <Carousel className="w-full max-w-[69.265625rem]">
         <CarouselContent className="gap-x-8 ml-4">
           {movies.map((movie) => (
-            <CarouselItem key={movie.id} className="basis-[9.375rem] pl-0">
+            <CarouselItem key={movie.id} className="max-h-[21.25rem] basis-[9.375rem] pl-0">
               <Movie movie={movie} />
             </CarouselItem>
           ))}

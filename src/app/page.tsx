@@ -39,6 +39,7 @@ export default function Home() {
         <div className="w-full">
         <HomeMoviesLists />
         </div>
+
       </div>
     </>
   );
