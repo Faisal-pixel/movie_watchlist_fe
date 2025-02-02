@@ -37,12 +37,13 @@ export const loginUser = async (email: string, password: string) => {
             email,
             password,
         })
+        console.log("Running inside the loginUser function after trying to access the login endpoint", result.data);
         const {success, token} = result.data;
 
         if(success && token) {
             setCookie("authToken", token, 1);
             console.log("Cookies after login:", document.cookie);
-            return true;
+            return {success: true};
         }
 
         return false;

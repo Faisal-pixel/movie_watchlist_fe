@@ -80,9 +80,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         //     }
         //     return;
         // }
-        console.log("the auth token cookie called in the auth context", getCookie("authToken"));
-        console.log("isAuthenticated in the auth context", isAuthenticated);
-        console.log("user exists in the auth context", user);
+        // console.log("the auth token cookie called in the auth context", getCookie("authToken"));
+        // console.log("isAuthenticated in the auth context", isAuthenticated);
+        // console.log("user exists in the auth context", user);
         if(getCookie("authToken")) {
             console.log("cookie after getting it in the auth context", getCookie("authToken"));
             checkAuthUser()

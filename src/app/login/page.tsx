@@ -41,7 +41,8 @@ const LogIn = () => {
   const onSubmit = async (values: z.infer<typeof SigninValidationSchema>) => {
     try {
       const session = await loginUser(values.email, values.password); // {success, token, message}
-      if (!session) {
+      console.log("Session after login", session);
+      if (!session.success) {
         // Get the token, pass into the setCookie function as authToken
         return toast({
           title: "Sign in failed. Please try again",
